@@ -16,12 +16,6 @@
         };
  */
 const configData = {
-    apiKey: "AIzaSyCjgLYwB6wDNwLHxSFQCQ0thk4ZN6C8CnE",
-    authDomain: "toyproject-vue.firebaseapp.com",
-    databaseURL: "https://toyproject-vue.firebaseio.com",
-    projectId: "toyproject-vue",
-    storageBucket: "toyproject-vue.appspot.com",
-    messagingSenderId: "1053210013247",
-    appId: "1:1053210013247:web:97ce54f7a3373534d5128a"
+    //firebase config data...
 };
 export default configData;
