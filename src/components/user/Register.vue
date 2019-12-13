@@ -5,6 +5,20 @@
         lazy-validation
     >
         <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+        ></v-text-field>
+
+        <v-text-field
+            v-model="password"
+            label="Password"
+            type="password"
+            required
+        ></v-text-field>
+
+        <v-text-field
             v-model="name"
             :counter="10"
             :rules="nameRules"
@@ -12,20 +26,13 @@
             required
         ></v-text-field>
 
-        <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-        ></v-text-field>
-
         <v-btn
             :disabled="!valid"
             color="success"
             class="mr-4"
-            @click="validate"
+            @click="register()"
         >
-            Validate
+            Register
         </v-btn>
 
         <v-btn
@@ -35,45 +42,50 @@
         >
             Reset Form
         </v-btn>
-
-        <v-btn
-            color="warning"
-            @click="resetValidation"
-        >
-            Reset Validation
-        </v-btn>
     </v-form>    
 </template>
 
 <script>
+// Import User Service
+import userService from '../../services/user/service';
+
 export default {
     data: () => ({
-        valid: true,
+        email: '',
+        password: '',
         name: '',
+        
         nameRules: [
             v => !!v || 'Name is required',
             v => (v && v.length <= 10) || 'Name must be less than 10 characters',
         ],
-        email: '',
         emailRules: [
             v => !!v || 'E-mail is required',
             v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
         ],
-        select: null
+        select: null,
+        valid: true
     }),
 
     methods: {
-        validate () {
-            if (this.$refs.form.validate()) {
-                this.snackbar = true;
-            }
+        
+        register() {
+
+            userService.register(this.email, this.password).then((ret) => {
+
+                if(ret) {
+
+                    alert("성공!");
+                }
+                else {
+
+                    alert("실패...");
+                }
+            });
         },
         reset () {
             this.$refs.form.reset();
-        },
-        resetValidation () {
-            this.$refs.form.resetValidation();
-        },
+        }
     }
 };
 </script>

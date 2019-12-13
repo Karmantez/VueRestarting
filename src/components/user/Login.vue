@@ -35,6 +35,7 @@
             <v-btn
                 color="green"
                 text
+                @click="login"
             >
                 LOGIN
             </v-btn>
@@ -44,6 +45,9 @@
 </template>
 
 <script>
+// Import User Service
+import userService from '../../services/user/service';
+
 export default {
     name: "Login",
     data() {
@@ -51,6 +55,23 @@ export default {
             email: "",
             password: ""
         };
+    },
+    methods: {
+
+        login() {
+
+            userService.login(this.email,  this.password).then((ret) => {
+
+                if(ret) {
+
+                    alert("로그인 성공!");
+                }
+                else {
+
+                    alert("로그인 실패...");
+                }
+            });
+        }
     }
 };
 </script>
