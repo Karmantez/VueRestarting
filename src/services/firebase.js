@@ -16,6 +16,12 @@
         };
  */
 const configData = {
-    //firebase config data...
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
 };
 export default configData;

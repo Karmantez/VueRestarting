@@ -40,6 +40,13 @@
                 LOGIN
             </v-btn>
             <v-spacer></v-spacer>
+            <v-btn
+                color="blue"
+                text
+                @click="login2"
+            >
+                LOGIN2
+            </v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -60,7 +67,22 @@ export default {
 
         login() {
 
-            userService.login(this.email,  this.password).then((ret) => {
+            userService.loginWithNormal(this.email,  this.password).then((ret) => {
+
+                if(ret) {
+
+                    alert("로그인 성공!");
+                }
+                else {
+
+                    alert("로그인 실패...");
+                }
+            });
+        },
+
+        login2() {
+
+            userService.loginWithEmail(this.email,  this.password).then((ret) => {
 
                 if(ret) {
 

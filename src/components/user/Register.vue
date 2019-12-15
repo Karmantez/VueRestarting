@@ -71,7 +71,7 @@ export default {
         
         register() {
 
-            userService.register(this.email, this.password).then((ret) => {
+            userService.registerWithEmail(this.email, this.name, this.password).then((ret) => {
 
                 if(ret) {
 
