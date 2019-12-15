@@ -17,6 +17,11 @@ const routes = [
         component: Home
     },
     {
+        path: '/home',
+        name: 'home',
+        component: Home
+    },
+    {
         path: '/login',
         name: 'login',
         component: Login
@@ -44,15 +49,10 @@ router.beforeEach((to,from,next) =>{
 
     next();
 
-    // if (requiresAuth && !currentUser) {
-    //     next('login');
-    // }
-    // else if(!requiresAuth && currentUser) {
-    //     next('/');
-    // }
-    // else {
-    //     next();
-    // }
+    if (requiresAuth && !currentUser) {
+        next('/login');
+    }
+    next();
 });
 
 export default router;

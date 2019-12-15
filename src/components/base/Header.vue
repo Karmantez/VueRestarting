@@ -28,12 +28,22 @@
                         </router-link>
                     </v-list-item>
                 </v-list>
+                <v-btn @click="logout">
+                    LOGOUT
+                </v-btn>
             </v-menu>
         </v-app-bar>
     </div>    
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+// Import User Service
+import userService from '../../services/user/service';
+
+const userMapState = createNamespacedHelpers('User').mapState;
+
+
 export default {
     name: "Header",
     data() {
@@ -41,9 +51,19 @@ export default {
             address: [
                 "home",
                 "login",
-                "register"
+                "register",
+                "logout"
             ]
         };
+    },
+    computed: {
+        ...userMapState(['user', 'loggedIn'])
+    },
+    methods: {
+
+        logout() {
+            userService.logout();
+        }
     }
 };
 </script>
