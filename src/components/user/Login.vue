@@ -55,6 +55,13 @@
 // Import User Service
 import userService from '../../services/user/service';
 
+// Import User Vuex
+import { createNamespacedHelpers } from 'vuex';
+
+const userGetters = createNamespacedHelpers('User').mapGetters;
+const userMutations = createNamespacedHelpers('User').mapMutations;
+
+
 export default {
     name: "Login",
     data() {
@@ -63,7 +70,11 @@ export default {
             password: ""
         };
     },
+    computed: {
+        ...userGetters(['getUser', 'getLoggedIn'])
+    },
     methods: {
+        ...userMutations(['setUser', 'setLoggedIn']),
 
         login() {
 

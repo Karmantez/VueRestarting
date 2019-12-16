@@ -16,7 +16,7 @@ export default {
 
     async registerProfile(email, name, password, uid) {
 
-        return await database.collection(USER).doc(email).set({
+        return await database.collection(USER).doc(uid).set({
             email,
             name,
             password,
@@ -66,9 +66,30 @@ export default {
         return firebase.auth().signOut()
             .then(() => { // eslint-disable-next-line no-console
                 console.log("LOGOUT: ");
+                return true;
             })
             .catch((error) => { // eslint-disable-next-line no-console
                 console.log("ERROR: ", error);
+                return false;
+            });
+    },
+
+    async authenticateUser(uid) {
+
+        return database.collection(USER).doc(uid)
+            .get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data());
+                    return doc.data();
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                    return null;
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+                return null;
             });
     }
 };
