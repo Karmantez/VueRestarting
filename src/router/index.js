@@ -7,6 +7,7 @@ import firebase from "firebase/app";
 // Import User Service Components
 import Login from '../components/user/Login.vue';
 import Register from '../components/user/Register.vue';
+import MyPage from '../components/user/MyPage.vue';
 
 Vue.use(VueRouter);
 
@@ -30,7 +31,15 @@ const routes = [
         path: '/register',
         name: 'register',
         component: Register
-    }        
+    },
+    {
+        path: '/mypage',
+        name: 'mypage',
+        component: MyPage,
+        meta: {
+            requiresAuth: true
+        }
+    }
 ];
 
 const router = new VueRouter({
@@ -50,6 +59,7 @@ router.beforeEach((to,from,next) =>{
     next();
 
     if (requiresAuth && !currentUser) {
+        alert("로그인이 필요합니다!");
         next('/login');
     }
     next();

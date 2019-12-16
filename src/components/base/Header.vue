@@ -18,19 +18,37 @@
                     </v-btn>
                 </template>
 
-                    <v-list>
-                    <v-list-item
-                        v-for="url in address"
-                        :key="url"
-                    >
-                        <router-link :to="'/' + url">
-                            <v-list-item-title>{{ url }}</v-list-item-title>
+                <v-list>
+                    <v-list-item>
+                        <router-link to="/home">
+                            <v-list-item-title>Home</v-list-item-title>
+                        </router-link>
+                    </v-list-item>
+
+                    <v-list-item>
+                        <router-link to="/login">
+                            <v-list-item-title>Login</v-list-item-title>
+                        </router-link>
+                    </v-list-item>
+
+                    <v-list-item>
+                        <router-link to="/register">
+                            <v-list-item-title>Register</v-list-item-title>
+                        </router-link>
+                    </v-list-item>
+
+                    <v-list-item>
+                        <router-link to="/logout">
+                            <v-list-item-title>Logout</v-list-item-title>
+                        </router-link>
+                    </v-list-item>
+
+                    <v-list-item>
+                        <router-link to="/mypage">
+                            <v-list-item-title>MyPage</v-list-item-title>
                         </router-link>
                     </v-list-item>
                 </v-list>
-                <v-btn @click="logout">
-                    LOGOUT
-                </v-btn>
             </v-menu>
         </v-app-bar>
     </div>    

@@ -7,6 +7,10 @@ const state = {
     loggedIn: false
 };
 
+const actions = {
+
+};
+
 const getters = {
 
     getUser: () => state.user,
@@ -24,6 +28,7 @@ const mutations = {
 
 export default {
     state,
+    actions,
     getters,
     mutations
 };
