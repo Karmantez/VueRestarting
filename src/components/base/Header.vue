@@ -4,7 +4,6 @@
             color="blue lighten-3 accent-2"
             dark
         >
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
         <v-toolbar-title>Toy Project - Taylous Survey System</v-toolbar-title>
         <v-spacer></v-spacer>
 
@@ -25,25 +24,34 @@
                         </router-link>
                     </v-list-item>
 
-                    <v-list-item>
+                    <v-list-item
+                        v-if="!loggedIn"
+                    >
                         <router-link to="/login">
                             <v-list-item-title>Login</v-list-item-title>
                         </router-link>
                     </v-list-item>
 
-                    <v-list-item>
+                    <v-list-item
+                        v-if="!loggedIn"
+                    >
                         <router-link to="/register">
                             <v-list-item-title>Register</v-list-item-title>
                         </router-link>
                     </v-list-item>
 
-                    <v-list-item>
+                    <v-list-item
+                        v-if="loggedIn"
+                        @click="logout"
+                    >
                         <v-list-item-title>
-                            <v-btn @click="logout">Logout</v-btn>
+                            <v-list-item-title>Logout</v-list-item-title>
                         </v-list-item-title>
                     </v-list-item>
 
-                    <v-list-item>
+                    <v-list-item
+                        v-if="loggedIn"
+                    >
                         <router-link to="/mypage">
                             <v-list-item-title>MyPage</v-list-item-title>
                         </router-link>
@@ -55,32 +63,36 @@
 </template>
 
 <script>
+// Import VUEX
 import { createNamespacedHelpers } from 'vuex';
 // Import User Service
 import userService from '../../services/user/service';
 
-const userMapState = createNamespacedHelpers('User').mapState;
+const userHelper = createNamespacedHelpers('User');
 
 
 export default {
     name: "Header",
-    data() {
-        return {
-            address: [
-                "home",
-                "login",
-                "register",
-                "logout"
-            ]
-        };
-    },
     computed: {
-        ...userMapState(['user', 'loggedIn'])
+        ...userHelper.mapState([
+            'user',
+            'loggedIn'
+        ])
     },
     methods: {
-
+        ...userHelper.mapMutations(['setUser']),
         logout() {
-            userService.logout();
+            userService.logout().then((ret) => {
+                this.$swal({
+                    title: ret.title,
+                    text: ret.text,
+                    icon: ret.icon,
+                    button: ret.button,
+                }).then(() => {
+                    this.setUser({ email: undefined, name: undefined });
+                    this.$router.push('/login');
+                });
+            });
         }
     }
 };

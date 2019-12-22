@@ -23,11 +23,6 @@ const mutations = {
     },
     setLoggedIn: (state, logged) => {
         state.loggedIn = logged;
-    },
-    setUserProfile: (state, obj) => {
-        state.user.name = obj.name;
-        state.user.occupation = obj.occupation;
-        state.user.age = obj.age;
     }
 };
 

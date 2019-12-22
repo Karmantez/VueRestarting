@@ -25,9 +25,6 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 
-// Import User Service
-// import userService from '../../services/user/service';
-
 // Import User Vuex
 import { createNamespacedHelpers } from 'vuex';
 
