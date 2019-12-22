@@ -5,7 +5,7 @@
             dark
         >
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <v-toolbar-title>Page title</v-toolbar-title>
+        <v-toolbar-title>Toy Project - Taylous Survey System</v-toolbar-title>
         <v-spacer></v-spacer>
 
             <v-menu
@@ -38,9 +38,9 @@
                     </v-list-item>
 
                     <v-list-item>
-                        <router-link to="/logout">
-                            <v-list-item-title>Logout</v-list-item-title>
-                        </router-link>
+                        <v-list-item-title>
+                            <v-btn @click="logout">Logout</v-btn>
+                        </v-list-item-title>
                     </v-list-item>
 
                     <v-list-item>

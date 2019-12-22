@@ -1,3 +1,4 @@
+// Import Firebase
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -35,11 +36,21 @@ export default {
             .signInWithEmailAndPassword(email, password)
             .then((ret) => {
                 console.log(ret);
-                return true;
+                return {
+                    title: 'WELCOME!',
+                    text: 'Success Log-In',
+                    icon: 'success',
+                    button: 'OK!'
+                };
             })
             .catch((error) => {
                 console.log("ERROR: ", error);
-                return false;
+                return {
+                    title: 'ERROR',
+                    text: error.message,
+                    icon: 'error',
+                    button: 'OK'
+                };
             });
     },
     async registerWithEmail(email, name, password) {
@@ -65,31 +76,12 @@ export default {
 
         return firebase.auth().signOut()
             .then(() => { // eslint-disable-next-line no-console
-                console.log("LOGOUT: ");
+                console.log("LOGOUT");
                 return true;
             })
             .catch((error) => { // eslint-disable-next-line no-console
                 console.log("ERROR: ", error);
                 return false;
-            });
-    },
-
-    async authenticateUser(uid) {
-
-        return database.collection(USER).doc(uid)
-            .get()
-            .then(function(doc) {
-                if (doc.exists) {
-                    console.log("Document data:", doc.data());
-                    return doc.data();
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                    return null;
-                }
-            }).catch(function(error) {
-                console.log("Error getting document:", error);
-                return null;
             });
     }
 };

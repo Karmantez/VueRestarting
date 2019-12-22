@@ -13,8 +13,8 @@ const actions = {
 
 const getters = {
 
-    getUser: () => state.user,
-    getLoggedIn: () => state.loggedIn
+    getUser: (state) => state.user,
+    getLoggedIn: (state) => state.loggedIn
 };
 
 const mutations = {
@@ -27,6 +27,7 @@ const mutations = {
 };
 
 export default {
+    namespaced: true,
     state,
     actions,
     getters,

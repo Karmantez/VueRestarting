@@ -15,12 +15,16 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home
+        component: Home,
+        redirect: '/login'
     },
     {
         path: '/home',
         name: 'home',
-        component: Home
+        component: Home,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/login',
@@ -56,11 +60,10 @@ router.beforeEach((to,from,next) =>{
     console.log(requiresAuth);
     console.log(currentUser);
 
-    next();
-
     if (requiresAuth && !currentUser) {
         alert("로그인이 필요합니다!");
         next('/login');
+        return;
     }
     next();
 });
