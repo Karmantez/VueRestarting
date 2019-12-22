@@ -4,6 +4,12 @@
 
         <h1>HOME PAGE</h1>
 
+        <h2>User's Profile</h2>
+        <div style="margin: 10px;">
+            {{ user.email }}
+            {{ user.name }}
+        </div>
+
         <v-sheet height="500">
             <v-calendar
                 type="month"
@@ -19,10 +25,22 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 
+// Import User Service
+// import userService from '../../services/user/service';
+
+// Import User Vuex
+import { createNamespacedHelpers } from 'vuex';
+
+const userGetters = createNamespacedHelpers('User').mapGetters;
+
 export default {
     name: 'home',
     data() {
         return {
+            user: {
+                email: "Empty",
+                name: "Unknown"
+            },
             events: [
                 {
                     name: 'Vacation',
@@ -52,6 +70,12 @@ export default {
                 },
             ],
         };
+    },
+    mounted() {
+        this.user = this.getUser;
+    },
+    computed: {
+        ...userGetters(['getUser', 'getLoggedIn'])
     }
 };
 </script>
