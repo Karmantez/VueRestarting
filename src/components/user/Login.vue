@@ -1,14 +1,5 @@
 <template>
     <v-container>
-        <div class="top: 50%; left: 50%">
-            <SemipolarSpinner
-                v-show="loading"
-                :animation-duration="2000"
-                :size="100"
-                color="#ff1d5e"
-            />
-        </div>
-
         <v-card
             class="mx-auto my-auto"
             max-width="30%"
@@ -62,12 +53,7 @@ import userService from '../../services/user/service';
 // Import User Vuex
 import { createNamespacedHelpers } from 'vuex';
 
-// Import Loading Animations
-import { SemipolarSpinner } from 'epic-spinners';
-
-const userGetters = createNamespacedHelpers('User').mapGetters;
-const userMutations = createNamespacedHelpers('User').mapMutations;
-
+const userHelper = createNamespacedHelpers('User');
 
 export default {
     name: "Login",
@@ -78,18 +64,21 @@ export default {
             loading: false
         };
     },
-    components: {
-        SemipolarSpinner
-    },
     computed: {
-        ...userGetters(['getUser', 'getLoggedIn'])
+        ...userHelper.mapGetters([
+            'getUser',
+            'getLoggedIn'
+        ])
     },
     methods: {
-        ...userMutations(['setUser', 'setLoggedIn']),
+        ...userHelper.mapMutations([
+            'setUser',
+            'setLoggedIn'
+        ]),
         login() {
-            this.loading = true;
+            this.$store.commit('setLoading', true);
             userService.loginWithEmail(this.email,  this.password).then((ret) => {
-                this.loading = false;
+                this.$store.commit('setLoading', false);
                 this.$swal({
                     title: ret.title,
                     text: ret.text,
@@ -99,7 +88,7 @@ export default {
 
                     if(ret.title === 'ERROR')
                         return;
-                    this.$store.commit('User/setUser', { email: "testing@naver.com", name: "테스트" });
+                    this.setUser({ email: "testing@naver.com", name: "테스트" });
                     this.$router.push('/home');
                 });
             });

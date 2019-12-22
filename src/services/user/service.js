@@ -1,3 +1,5 @@
+// Import Vue for vue-logger
+import Vue from 'vue';
 // Import Firebase
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -22,11 +24,10 @@ export default {
             name,
             password,
             uid
-        }).then(() => { // eslint-disable-next-line no-console
-            console.log("SUCCESS");
+        }).then(() => {
             return true;
-        }).catch((error) => { // eslint-disable-next-line no-console
-            console.log("ERROR: ", error);
+        }).catch((error) => {
+            Vue.$log.debug(error);
             return false;
         });
     },
@@ -34,8 +35,7 @@ export default {
         return await firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .then((ret) => {
-                console.log(ret);
+            .then(() => {
                 return {
                     title: 'WELCOME!',
                     text: 'Success Log-In',
@@ -44,7 +44,7 @@ export default {
                 };
             })
             .catch((error) => {
-                console.log("ERROR: ", error);
+                Vue.$log.debug(error);
                 return {
                     title: 'ERROR',
                     text: error.message,
@@ -57,31 +57,40 @@ export default {
         return await firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
-            .then((ret) => { // eslint-disable-next-line no-console
-                console.log("SUCCESS: ", ret);
+            .then(async (ret) => {
+                Vue.$log.debug(ret);
                 return this.registerProfile(email, name, password, ret.user.uid)
                     .then(() => {
                         return true;
                     }).catch((error) => {
-                        console.log("ERROR: ", error);
+                        Vue.$log.debug(error);
                         return false;
                     });
             })
-            .catch((error) => { // eslint-disable-next-line no-console
-                console.log("ERROR: ", error);
+            .catch((error) => { 
+                Vue.$log.debug(error);
                 return false;
             });
     },
     async logout() {
 
         return firebase.auth().signOut()
-            .then(() => { // eslint-disable-next-line no-console
-                console.log("LOGOUT");
-                return true;
+            .then(() => {
+                return {
+                    title: 'GoodBye',
+                    text: 'Success Log-Out',
+                    icon: 'success',
+                    button: 'OK'
+                };
             })
-            .catch((error) => { // eslint-disable-next-line no-console
-                console.log("ERROR: ", error);
-                return false;
+            .catch((error) => { 
+                Vue.$log.debug(error);
+                return {
+                    title: 'ERROR',
+                    text: error.message,
+                    icon: 'error',
+                    button: 'OK'
+                };
             });
     }
 };
