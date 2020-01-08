@@ -10,7 +10,7 @@
                 src="@/assets/survey.png"
             ></v-img>
 
-            <v-card-title>
+        <v-card-title>
                 Login Page
             </v-card-title>
 
