@@ -4,21 +4,39 @@
     <span class="addContainer" @click="addTodo">
       <i class="fas fa-plus addBtn"></i>
     </span>
+
+    <Modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">
+        경고!
+        <i class="closeModalBtn fas fa-times" @click="showModal = false"></i>
+      </h3>
+      <div slot="body">아무것도 입력하지 않으셨습니다.</div>
+    </Modal>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+import Modal from '@/components/common/Modal';
+
 export default {
+  components: {
+    Modal,
+  },
   data() {
     return {
       newTodoItem: '',
+      showModal: false,
     };
   },
   methods: {
+    ...mapMutations({ addOneItem: 'todo/addOneItem' }),
     addTodo() {
       if (this.newTodoItem !== '') {
-        this.$emit('addTodoItem', this.newTodoItem);
+        this.addOneItem(this.newTodoItem.trim());
         this.clearInput();
+      } else {
+        this.showModal = true;
       }
     },
     clearInput() {
@@ -56,5 +74,9 @@ input:focus {
 .addBtn {
   color: #fff;
   vertical-align: middle;
+}
+
+.closeModalBtn {
+  color: #42b983;
 }
 </style>
