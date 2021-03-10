@@ -146,5 +146,8 @@ module.exports = {
           ],
         },
       ],
+
+      // custom
+      'no-unused-vars': 1
     },
 }

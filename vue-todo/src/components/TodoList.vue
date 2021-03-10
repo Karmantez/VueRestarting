@@ -5,7 +5,7 @@
         <i
           class="checkBtn fas fa-check"
           :class="{ checkBtnCompleted: todoItem.completed }"
-          @click="toggleComplete(todoItem)"
+          @click="toggleComplete(todoItem, index)"
         ></i>
         <span :class="{ textCompleted: todoItem.completed }">{{ todoItem.item }}</span>
         <span class="removeBtn" @click="removeTodo(todoItem, index)">
@@ -18,34 +18,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      todoItems: [],
-    };
-  },
-  created() {
-    if (localStorage.length > 0) {
-      const size = localStorage.length;
-
-      for (let i = 0; i < size; i += 1) {
-        const todo = localStorage.key(i);
-
-        if (todo !== 'loglevel:webpack-dev-server' || todo === '') {
-          this.todoItems.push(JSON.parse(localStorage.getItem(todo)));
-        }
-      }
-    }
+  props: {
+    todoItems: { type: Array, default: () => [] },
   },
   methods: {
     removeTodo(todoItem, index) {
-      localStorage.removeItem(todoItem);
-      this.todoItems.splice(index, 1);
+      this.$emit('removeItem', todoItem, index);
     },
-    toggleComplete(todoItem) {
-      todoItem.completed = !todoItem.completed;
-
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    toggleComplete(todoItem, index) {
+      this.$emit('toggleItem', todoItem, index);
     },
   },
 };
