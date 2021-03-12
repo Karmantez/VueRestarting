@@ -1,33 +1,30 @@
 <template>
   <div>
-    <ul>
-      <li v-for="(todoItem, index) in todoItems" :key="index" class="shadow">
+    <transition-group name="list" tag="ul">
+      <li v-for="(todoItem, index) in storedTodoItems" :key="todoItem.item + index" class="shadow">
         <i
           class="checkBtn fas fa-check"
           :class="{ checkBtnCompleted: todoItem.completed }"
-          @click="toggleComplete(todoItem, index)"
+          @click="toggleOneItem({ todoItem, index })"
         ></i>
         <span :class="{ textCompleted: todoItem.completed }">{{ todoItem.item }}</span>
-        <span class="removeBtn" @click="removeTodo(todoItem, index)">
+        <span class="removeBtn" @click="removeOneItem({ todoItem, index })">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
-  props: {
-    todoItems: { type: Array, default: () => [] },
+  computed: {
+    ...mapGetters({ storedTodoItems: 'todo/storedTodoItems' }),
   },
   methods: {
-    removeTodo(todoItem, index) {
-      this.$emit('removeItem', todoItem, index);
-    },
-    toggleComplete(todoItem, index) {
-      this.$emit('toggleItem', todoItem, index);
-    },
+    ...mapMutations({ removeOneItem: 'todo/removeOneItem', toggleOneItem: 'todo/toggleOneItem' }),
   },
 };
 </script>
@@ -36,7 +33,7 @@ export default {
 ul {
   list-style-type: none;
   padding-left: 0px;
-  margin-top: 0px;
+  margin-top: 0;
   text-align: left;
 }
 
@@ -47,7 +44,7 @@ li {
   line-height: 50px;
   margin: 0.5rem 0;
   padding: 0 0.9rem;
-  background: #fff;
+  background: white;
   border-radius: 5px;
 }
 
@@ -57,11 +54,6 @@ li {
   margin-right: 5px;
 }
 
-.removeBtn {
-  margin-left: auto;
-  color: #de4343;
-}
-
 .checkBtnCompleted {
   color: #b3adad;
 }
@@ -69,5 +61,22 @@ li {
 .textCompleted {
   text-decoration: line-through;
   color: #b3adad;
+}
+
+.removeBtn {
+  margin-left: auto;
+  color: #de4343;
+}
+
+/* transition css */
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
