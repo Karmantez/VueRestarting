@@ -1,8 +1,8 @@
 <template>
   <div>
     <p v-for="(ask, index) in GET_ASKS" :key="index">
-      <a :href="ask.url"> {{ ask.title }}</a>
-      <small>{{ ask.time_ago }} by {{ ask.user }}</small>
+      <router-link :to="`item/${ask.id}`"> {{ ask.title }}</router-link>
+      <small> {{ ask.time_ago }} by {{ ask.user }} </small>
     </p>
   </div>
 </template>
