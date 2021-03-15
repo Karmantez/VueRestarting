@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Toolbar />
-    <router-view />
+    <transition name="page">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -23,5 +25,15 @@ export default {
 body {
   padding: 0px;
   margin: 0px;
+}
+</style>
+
+<style scoped>
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter, .page-leave-to /* .page-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
