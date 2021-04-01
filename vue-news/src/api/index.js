@@ -11,7 +11,7 @@ const config = {
  * @returns {Promise} request result
  */
 function fetchApi(url) {
-  return axios.get(`${config.baseUrl}/${url}`);
+  return axios.get(`${config.baseUrl}/${url}/1.json`);
 }
 
 function fetchInfo({ type, id }) {

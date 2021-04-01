@@ -1,18 +1,17 @@
 <template>
   <div>
     <section>
-      <!-- Question Detail -->
-      <div class="user-container">
-        <div>
-          <i class="fas fa-user"></i>
-        </div>
-        <div class="user-description">
-          <router-link :to="`/user/${GET_ITEM.user}`">{{ GET_ITEM.user }}</router-link>
-          <div class="time">
-            {{ GET_ITEM.time_ago }}
-          </div>
-        </div>
-      </div>
+      <!-- Detail -->
+      <UserProfile :info="GET_ITEM">
+        <router-link slot="username" :to="`/user/${GET_ITEM.user}`">
+          {{ GET_ITEM.user }}
+        </router-link>
+        <template slot="time">
+          {{ 'Posted ' + GET_ITEM.time_ago }}
+        </template>
+      </UserProfile>
+    </section>
+    <section>
       <h2>{{ GET_ITEM.title }}</h2>
     </section>
     <section>
@@ -24,8 +23,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import UserProfile from '@/components/UserProfile.vue';
 
 export default {
+  components: {
+    UserProfile,
+  },
   computed: {
     ...mapGetters(['GET_ITEM']),
   },

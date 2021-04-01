@@ -6,25 +6,19 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    news: [],
-    jobs: [],
-    asks: [],
     user: {},
-    item: [],
+    item: {},
+    list: [],
   },
   getters: {
-    GET_NEWS: state => state.news,
-    GET_JOBS: state => state.jobs,
-    GET_ASKS: state => state.asks,
     GET_USER: state => state.user,
     GET_ITEM: state => state.item,
+    GET_LIST: state => state.list,
   },
   mutations: {
-    SET_NEWS: (state, payload) => (state.news = payload),
-    SET_JOBS: (state, payload) => (state.jobs = payload),
-    SET_ASKS: (state, payload) => (state.asks = payload),
     SET_USER: (state, payload) => (state.user = payload),
     SET_ITEM: (state, payload) => (state.item = payload),
+    SET_LIST: (state, payload) => (state.list = payload),
   },
   actions: {
     /**
@@ -32,9 +26,12 @@ export default new Vuex.Store({
      * @param {object} param0 context
      * @param {{ url: string, setter: string }} param1 request api url, mutations name
      */
-    FETCH_LIST({ commit }, { url, setter }) {
-      fetchApi(url)
-        .then(({ data }) => commit(setter, data))
+    FETCH_LIST({ commit }, { name }) {
+      return fetchApi(name)
+        .then(response => {
+          commit('SET_LIST', response.data);
+          return { success: true, status: response.status };
+        })
         .catch(error => console.log(error));
     },
 
