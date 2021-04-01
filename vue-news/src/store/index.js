@@ -26,8 +26,8 @@ export default new Vuex.Store({
      * @param {object} param0 context
      * @param {{ url: string, setter: string }} param1 request api url, mutations name
      */
-    FETCH_LIST({ commit }, { name }) {
-      return fetchApi(name)
+    async FETCH_LIST({ commit }, { name }) {
+      return await fetchApi(name)
         .then(response => {
           commit('SET_LIST', response.data);
           return { success: true, status: response.status };
