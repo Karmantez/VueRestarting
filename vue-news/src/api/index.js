@@ -11,11 +11,19 @@ const config = {
  * @returns {Promise} request result
  */
 async function fetchApi(url) {
-  return await axios.get(`${config.baseUrl}/${url}/1.json`);
+  try {
+    return axios.get(`${config.baseUrl}/${url}/1.json`);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function fetchInfo({ type, id }) {
-  return await axios.get(`${config.baseUrl}/${type}/${id}.json`);
+  try {
+    return axios.get(`${config.baseUrl}/${type}/${id}.json`);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export { fetchApi, fetchInfo };

@@ -25,14 +25,21 @@ export default new Vuex.Store({
      *
      * @param {object} param0 context
      * @param {{ url: string, setter: string }} param1 request api url, mutations name
+     * @returns {{success: string, status: number}} If the api request is successful,
+     * an object containing success and status is returned.
      */
     async FETCH_LIST({ commit }, { name }) {
-      return await fetchApi(name)
-        .then(response => {
-          commit('SET_LIST', response.data);
-          return { success: true, status: response.status };
-        })
-        .catch(error => console.log(error));
+      const result = { success: true, status: undefined };
+      try {
+        const response = await fetchApi(name);
+        console.log(response);
+        commit('SET_LIST', response.data);
+        result.status = response.status;
+      } catch (error) {
+        console.log(error);
+        result.status = error;
+      }
+      return result;
     },
 
     /**
@@ -43,10 +50,13 @@ export default new Vuex.Store({
      * @param {string} param1.id
      * @param {string} param2
      */
-    FETCH_INFO({ commit }, { type, id, setter }) {
-      fetchInfo({ type, id })
-        .then(({ data }) => commit(setter, data))
-        .catch(error => console.log(error));
+    async FETCH_INFO({ commit }, { type, id, setter }) {
+      try {
+        const response = await fetchInfo({ type, id });
+        commit(setter, response.data);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   modules: {},
