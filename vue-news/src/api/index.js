@@ -10,12 +10,12 @@ const config = {
  * @param {string} url request api url
  * @returns {Promise} request result
  */
-function fetchApi(url) {
-  return axios.get(`${config.baseUrl}/${url}/1.json`);
+async function fetchApi(url) {
+  return await axios.get(`${config.baseUrl}/${url}/1.json`);
 }
 
-function fetchInfo({ type, id }) {
-  return axios.get(`${config.baseUrl}/${type}/${id}.json`);
+async function fetchInfo({ type, id }) {
+  return await axios.get(`${config.baseUrl}/${type}/${id}.json`);
 }
 
 export { fetchApi, fetchInfo };
