@@ -53,7 +53,8 @@ export default {
          *    3. vuex 사용 ✅
          */
         this.$store.commit('setUsername', data.user.username);
-
+        // save token
+        this.$store.commit('setToken', data.token);
         // Programmatic Navigation
         this.$router.push('/main');
       } catch (error) {
