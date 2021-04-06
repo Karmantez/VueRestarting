@@ -23,6 +23,7 @@ export default new Vuex.Store({
     setUsername: (state, username) => (state.username = username),
     clearUsername: state => (state.username = ''),
     setToken: (state, token) => (state.token = token),
+    clearToken: state => (state.token = ''),
   },
   actions: {
     async LOGIN({ commit }, userData) {
