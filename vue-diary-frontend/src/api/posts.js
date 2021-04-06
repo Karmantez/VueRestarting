@@ -2,10 +2,17 @@
 import { posts } from '@/api';
 
 /**
- * 학습 노트 데이터를 조회하는 API
+ * 전체 학습 노트 데이터를 조회하는 API
  */
 const fetchPosts = () => {
   return posts.get('/');
+};
+
+/**
+ * 특정 학습 노트 데이터를 조회하는 API
+ */
+const fetchPost = postId => {
+  return posts.get(postId);
 };
 
 /**
@@ -18,6 +25,14 @@ const createPost = postData => {
 };
 
 /**
+ * 학습 노트 데이터를 수정하는 API
+ * @param {*} postId
+ */
+const editPost = (postId, postData) => {
+  return posts.put(postId, postData);
+};
+
+/**
  * 학습 노트 데이터를 삭제하는 API
  * @param {*} postId
  */
@@ -25,4 +40,4 @@ const deletePost = postId => {
   return posts.delete(postId);
 };
 
-export { fetchPosts, createPost, deletePost };
+export { fetchPosts, fetchPost, createPost, deletePost, editPost };
