@@ -16,7 +16,6 @@ const setInterceptors = instance => {
   // Add interceptors for response
   instance.interceptors.response.use(
     response => {
-      console.log(response);
       return response;
     },
     error => {
