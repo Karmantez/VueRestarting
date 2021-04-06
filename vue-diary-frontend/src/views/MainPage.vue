@@ -21,7 +21,7 @@
 <script>
 import PostListItem from '@/components/posts/PostListItem';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
-import { fetchPosts } from '@/api';
+import { fetchPosts } from '@/api/posts';
 
 export default {
   components: {
