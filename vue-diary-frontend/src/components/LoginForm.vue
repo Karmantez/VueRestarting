@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import { loginUser } from '@/api';
 import { validateEmail } from '@/utils/validation';
 
 export default {
@@ -43,18 +42,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        // business logic
-        const { data } = await loginUser({ username: this.username, password: this.password });
-
-        /**
-         *  ❓ 로그인한 User의 nickname을 AppHeader로 보내주는 방법
-         *    1. emit 사용
-         *    2. event bus 사용
-         *    3. vuex 사용 ✅
-         */
-        this.$store.commit('setUsername', data.user.username);
-        // save token
-        this.$store.commit('setToken', data.token);
+        await this.$store.dispatch('LOGIN', { username: this.username, password: this.password });
         // Programmatic Navigation
         this.$router.push('/main');
       } catch (error) {
