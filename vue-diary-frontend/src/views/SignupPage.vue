@@ -1,14 +1,12 @@
 <template>
   <div>
-    <h1>회원가입</h1>
-    <div>
-      <SignupForm></SignupForm>
-    </div>
+    <h1 class="page-header">회원 가입 페이지</h1>
+    <SignupForm></SignupForm>
   </div>
 </template>
 
 <script>
-import SignupForm from '@/components/common/SignupForm';
+import SignupForm from '@/components/SignupForm';
 
 export default {
   components: {
