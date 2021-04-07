@@ -39,4 +39,13 @@ const fetchPosts = () => {
   return instance.get('posts');
 };
 
-export { registerUser, loginUser, fetchPosts };
+/**
+ * 학습 노트 데이터를 생성하는 API
+ * @param {*} postData
+ * @returns
+ */
+const createPost = postData => {
+  return instance.post('posts', postData);
+};
+
+export { registerUser, loginUser, fetchPosts, createPost };
