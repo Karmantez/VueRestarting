@@ -23,7 +23,7 @@
 
 <script>
 import { validateEmail } from '@/utils/validation';
-import { registerUser } from '@/api';
+import { registerUser } from '@/api/auth';
 
 export default {
   data() {
